@@ -20,26 +20,28 @@ void setup ()
     {
         for (int j=0; j<NUM_COLS;j++)
         {
-         MSButton button= new MSButton(i,j);
+         buttons[i][j]= new MSButton(i,j);
 
         }
     }
     //your code to declare and initialize buttons goes here
     
     
-    
+    bombs= new ArrayList <MSButton>();
     setBombs();
 }
 public void setBombs()
 {
-    bombs= new ArrayList <MSButton>(9);
+  
 
     while (bombs.size()<10)
     {
     int i=(int)(Math.random()*NUM_ROWS);
     int j=(int)(Math.random()*NUM_COLS);
-    if(!buttons.contains(bombs[i][j]))
-            buttons.add(bombs[i][j]);
+    System.out.println(i+"," +j);
+    if(!bombs.contains(buttons[i][j]))
+            bombs.add(buttons[i][j]);
+   
 }
 }
 
@@ -102,8 +104,8 @@ public class MSButton
     {    
         if (marked)
             fill(0);
-         else if( clicked && bombs.contains(this) ) 
-      fill(255,0,0);
+        else if( clicked && bombs.contains(this) ) 
+            fill(255,0,0);
         else if(clicked)
             fill( 200 );
         else 
