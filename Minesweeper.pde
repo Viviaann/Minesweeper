@@ -25,8 +25,6 @@ void setup ()
         }
     }
     //your code to declare and initialize buttons goes here
-    
-    
     bombs= new ArrayList <MSButton>();
     setBombs();
 }
@@ -38,18 +36,17 @@ public void setBombs()
     {
     int i=(int)(Math.random()*NUM_ROWS);
     int j=(int)(Math.random()*NUM_COLS);
-    System.out.println(i+"," +j);
     if(!bombs.contains(buttons[i][j]))
             bombs.add(buttons[i][j]);
    
-}
+    }
 }
 
 public void draw ()
 {
     background( 0 );
     if(isWon())
-        displayWinningMessage();
+    displayWinningMessage();
 }
 public boolean isWon()
 {
@@ -97,7 +94,39 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        //your code here
+        if (keyPressed == true)
+        {
+            if(button[r][c].isMarked()==true)
+                button[r][c].isClicked()==false;
+        }
+        else if(bombs.contains(this))
+        {
+            button[r][c].displayLosingMessage();
+        }
+        else if(button[r][c].countBombs()>0)
+        {
+            button[r][c].setLabel(button[r][c].countBombs);
+        }
+        else
+        {
+        if(isValid(r-1,c) && button[r-1][c].isMarked())
+         button[r-1][c].mousePressed();
+        if(isValid(r-1,c+1) && button[r-1][c+1].isMarked())
+         button[r-1][c+1].mousePressed();
+        if(isValid(r-1,c-1) && button[r-1][c-1].isMarked())
+         button[r-1][c-1].mousePressed();
+        if(isValid(r,c+1) && button[r][c+1].isMarked())
+         button[r][c+1].mousePressed();
+        if(isValid(r,c-1) && button[r][c-1].isMarked())
+         button[r][c-1].mousePressed();
+        if(isValid(r+1,c-1) && button[r+1][c-1].isMarked())
+         button[r+1][c-1].mousePressed();
+        if(isValid(r+1,c+1) && button[r+1][c+1].isMarked())
+         button[r+1][c+1].mousePressed();
+        if(isValid(r+1,c) && button[r+1][c].isMarked())
+         button[r+1][c].mousePressed() ;  
+        }
+
     }
 
     public void draw () 
@@ -121,13 +150,14 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        //your code here
+        if(r>=0&&r<=19&&c>=0&&c<=19)
+         return true;
         return false;
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
-        //your code here
+    
         return numBombs;
     }
 }
