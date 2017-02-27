@@ -32,13 +32,13 @@ public void setBombs()
 {
   
 
-    while (bombs.size()<10)
+    while (bombs.size()<30)
     {
     int i=(int)(Math.random()*NUM_ROWS);
     int j=(int)(Math.random()*NUM_COLS);
     if(!bombs.contains(buttons[i][j]))
             bombs.add(buttons[i][j]);
-   
+       System.out.println(i); 
     }
 }
 
@@ -96,35 +96,35 @@ public class MSButton
         clicked = true;
         if (keyPressed == true)
         {
-            if(button[r][c].isMarked()==true)
-                button[r][c].isClicked()==false;
+            if(buttons[r][c].isMarked())
+                buttons[r][c].isClicked();
         }
         else if(bombs.contains(this))
         {
-            button[r][c].displayLosingMessage();
+            displayLosingMessage();
         }
-        else if(button[r][c].countBombs()>0)
+        else if(buttons[r][c].countBombs(r,c)>0)
         {
-            button[r][c].setLabel(button[r][c].countBombs);
+            buttons[r][c].setLabel("1");
         }
         else
         {
-        if(isValid(r-1,c) && button[r-1][c].isMarked())
-         button[r-1][c].mousePressed();
-        if(isValid(r-1,c+1) && button[r-1][c+1].isMarked())
-         button[r-1][c+1].mousePressed();
-        if(isValid(r-1,c-1) && button[r-1][c-1].isMarked())
-         button[r-1][c-1].mousePressed();
-        if(isValid(r,c+1) && button[r][c+1].isMarked())
-         button[r][c+1].mousePressed();
-        if(isValid(r,c-1) && button[r][c-1].isMarked())
-         button[r][c-1].mousePressed();
-        if(isValid(r+1,c-1) && button[r+1][c-1].isMarked())
-         button[r+1][c-1].mousePressed();
-        if(isValid(r+1,c+1) && button[r+1][c+1].isMarked())
-         button[r+1][c+1].mousePressed();
-        if(isValid(r+1,c) && button[r+1][c].isMarked())
-         button[r+1][c].mousePressed() ;  
+        if(isValid(r-1,c) && buttons[r-1][c].isMarked())
+         buttons[r-1][c].mousePressed();
+        if(isValid(r-1,c+1) && buttons[r-1][c+1].isMarked())
+         buttons[r-1][c+1].mousePressed();
+        if(isValid(r-1,c-1) && buttons[r-1][c-1].isMarked())
+         buttons[r-1][c-1].mousePressed();
+        if(isValid(r,c+1) && buttons[r][c+1].isMarked())
+         buttons[r][c+1].mousePressed();
+        if(isValid(r,c-1) && buttons[r][c-1].isMarked())
+         buttons[r][c-1].mousePressed();
+        if(isValid(r+1,c-1) && buttons[r+1][c-1].isMarked())
+         buttons[r+1][c-1].mousePressed();
+        if(isValid(r+1,c+1) && buttons[r+1][c+1].isMarked())
+         buttons[r+1][c+1].mousePressed();
+        if(isValid(r+1,c) && buttons[r+1][c].isMarked())
+         buttons[r+1][c].mousePressed() ;  
         }
 
     }
