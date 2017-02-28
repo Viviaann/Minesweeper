@@ -38,7 +38,6 @@ public void setBombs()
     int j=(int)(Math.random()*NUM_COLS);
     if(!bombs.contains(buttons[i][j]))
             bombs.add(buttons[i][j]);
-       System.out.println(i); 
     }
 }
 
@@ -94,21 +93,11 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        if (keyPressed == true)
+
+        if (isValid(r,c) && buttons[r][c].isClicked())
         {
-            if(buttons[r][c].isMarked())
-                buttons[r][c].isClicked();
-        }
-        else if(bombs.contains(this))
-        {
-            displayLosingMessage();
-        }
-        else if(buttons[r][c].countBombs(r,c)>0)
-        {
-            buttons[r][c].setLabel("1");
-        }
-        else
-        {
+            System.out.println(r+""+c);
+            clicked=true;
         if(isValid(r-1,c) && buttons[r-1][c].isMarked())
          buttons[r-1][c].mousePressed();
         if(isValid(r-1,c+1) && buttons[r-1][c+1].isMarked())
@@ -125,6 +114,19 @@ public class MSButton
          buttons[r+1][c+1].mousePressed();
         if(isValid(r+1,c) && buttons[r+1][c].isMarked())
          buttons[r+1][c].mousePressed() ;  
+        }
+        else if(bombs.contains(this))
+        {
+            displayLosingMessage();
+        }
+        // else if(buttons[r][c].countBombs(r,c)>0)
+        // {
+        //     buttons[r][c].setLabel("1");
+        // }
+        else
+        {
+            clicked=true;
+       
         }
 
     }
