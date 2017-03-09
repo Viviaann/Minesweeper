@@ -32,12 +32,15 @@ public void setBombs()
 {
   
 
-    while (bombs.size()<30)
+    while (bombs.size()<40)
     {
     int i=(int)(Math.random()*NUM_ROWS);
     int j=(int)(Math.random()*NUM_COLS);
     if(!bombs.contains(buttons[i][j]))
+    {
             bombs.add(buttons[i][j]);
+            System.out.println(i+", " + j);
+    }
     }
 }
 
@@ -89,84 +92,97 @@ public class MSButton
         return clicked;
     }
     // called by manager
-    
+    public boolean keyPressed()
+    {
+        if(key=='f')
+            return true;
+        else 
+            return false;
+    }
     public void mousePressed () 
     {
         clicked = true;
 
-        if (isValid(r,c) && buttons[r][c].isClicked()&& !bombs.contains(buttons[r][c]))
+        if(keyPressed==true)
         {
-            System.out.println(r+""+c);
-        if(isValid(r-1,c)&& countBombs(r-1,c)<1&& !buttons[r-1][c].isMarked())
-         buttons[r-1][c].mousePressed();
-        if(isValid(r+1,c)&&countBombs(r+1,c)<1 && !buttons[r+1][c].isMarked())
-         buttons[r+1][c].mousePressed();
-         if(isValid(r-1,c-1) && !buttons[r-1][c-1].isMarked()&&countBombs(r-1,c-1)<1)
-         buttons[r-1][c-1].mousePressed();
-        if(isValid(r,c+1) && !buttons[r][c+1].isMarked()&&countBombs(r,c+1)<1)
-         buttons[r][c+1].mousePressed();
-        if(isValid(r,c-1) && !buttons[r][c-1].isMarked()&&countBombs(r,c-1)<1)
-         buttons[r][c-1].mousePressed();
-        if(isValid(r+1,c-1) && !buttons[r+1][c-1].isMarked()&&countBombs(r+1,c-1)<1)
-         buttons[r+1][c-1].mousePressed();
-        if(isValid(r+1,c+1) && !buttons[r+1][c+1].isMarked()&&countBombs(r+1,c+1)<1)
-         buttons[r+1][c+1].mousePressed();
-        if(isValid(r+1,c) && !buttons[r+1][c].isMarked()&&countBombs(r+1,c)<1)
-         buttons[r+1][c].mousePressed() ;  
+            if(marked=true)
+               { clicked=false;
+                marked=false;
+            }
+            else
+                marked=true;
         }
-        else if(bombs.contains(this))
+        else if(bombs.contains(buttons[r][c]))
         {
             displayLosingMessage();
         }
-        // else if(buttons[r][c].countBombs(r,c)>0)
-        // {
-        //     buttons[r][c].setLabel("1");
-        // }
+        else if(countBombs(r,c)>0)
+        {
+            setLabel(""+ countBombs(r,c));
+        }
+
         else
         {
-            clicked=true;
-       
+        clicked=true;
+        if(isValid(r-1,c)&& !buttons[r-1][c].isClicked())
+         buttons[r-1][c].mousePressed();
+        if(isValid(r+1,c) && !buttons[r+1][c].isClicked())
+         buttons[r+1][c].mousePressed();
+         if(isValid(r-1,c-1) && !buttons[r-1][c-1].isClicked())
+         buttons[r-1][c-1].mousePressed();
+        if(isValid(r,c+1) && !buttons[r][c+1].isClicked())
+         buttons[r][c+1].mousePressed();
+        if(isValid(r,c-1) && !buttons[r][c-1].isClicked())
+         buttons[r][c-1].mousePressed();
+        if(isValid(r+1,c-1) && !buttons[r+1][c-1].isClicked())
+         buttons[r+1][c-1].mousePressed();
+        if(isValid(r+1,c+1) && !buttons[r+1][c+1].isClicked())
+         buttons[r+1][c+1].mousePressed();
+        if(isValid(r+1,c) && !buttons[r+1][c].isClicked())
+         buttons[r+1][c].mousePressed() ;  
         }
+        
 
     }
 
     public void draw () 
     {    
         if (marked)
-            fill(0);
-        else if( clicked && bombs.contains(this) ) 
-            {
-                fill(255,0,0); 
+            fill(174,225,242);
+        // else if( clicked && bombs.contains(this) ) 
+        //     {
+        //         fill(255,0,0); 
                
-            }
-        else if( clicked && bombs.contains(buttons[r+1][c]) ) 
-            {fill(0,255,0);
-            }
-         else if( clicked && bombs.contains(buttons[r+1][c-1]) ) 
-           { fill(0,255,0);
-           }
-         else if( clicked && bombs.contains(buttons[r+1][c+1]) ) 
-           { fill(0,255,0);
-           }
-         else if( clicked && bombs.contains(buttons[r-1][c]) ) 
-            {fill(0,255,0);}
-         else if( clicked && bombs.contains(buttons[r-1][c+1]) ) 
-            {fill(0,255,0);}
-         else if( clicked && bombs.contains(buttons[r-1][c-1]) ) 
-            {fill(0,255,0);}
-         else if( clicked && bombs.contains(buttons[r][c+1]) ) 
-            {fill(0,255,0);}
-         else if( clicked && bombs.contains(buttons[r][c-1]) ) 
-            {fill(0,255,0);}
+        //     }
+        // else if( clicked && bombs.contains(buttons[r+1][c]) ) 
+        //     {fill(0,255,0);
+        //     }
+        //  else if( clicked && bombs.contains(buttons[r+1][c-1]) ) 
+        //    { fill(0,255,0);
+        //    }
+        //  else if( clicked && bombs.contains(buttons[r+1][c+1]) ) 
+        //    { fill(0,255,0);
+        //    }
+        //  else if( clicked && bombs.contains(buttons[r-1][c]) ) 
+        //     {fill(0,255,0);}
+        //  else if( clicked && bombs.contains(buttons[r-1][c+1]) ) 
+        //     {fill(0,255,0);}
+        //  else if( clicked && bombs.contains(buttons[r-1][c-1]) ) 
+        //     {fill(0,255,0);}
+        //  else if( clicked && bombs.contains(buttons[r][c+1]) ) 
+        //     {fill(0,255,0);}
+        //  else if( clicked && bombs.contains(buttons[r][c-1]) ) 
+        //     {fill(0,255,0);}
 
-        else if(clicked)
+        else if (clicked)
             fill( 200 );
-        else 
-            fill( 100 );
+         else 
+            fill(100 );
 
         rect(x, y, width, height);
         fill(0);
         text(label,x+width/2,y+height/2);
+
     }
     public void setLabel(String newLabel)
     {
@@ -174,17 +190,30 @@ public class MSButton
     }
     public boolean isValid(int r, int c)
     {
-        if(r>=0&&r<=19&&c>=0&&c<=19)
+        if(r>=0&&r<=NUM_ROWS&&c>=0&&c<=NUM_COLS)
          return true;
         return false;
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
-        if(bombs.contains(buttons[r+1][c])||bombs.contains(buttons[r+1][c+1])||bombs.contains(buttons[r+1][c-1])||bombs.contains(buttons[r-1][c])||bombs.contains(buttons[r-1][c+1])||bombs.contains(buttons[r-1][c-1])||bombs.contains(buttons[r][c+1])||bombs.contains(buttons[r][c-1]))
-    {
-        numBombs++;
-    }
+        if( isValid(r+1,c) && bombs.contains(buttons[r+1][c]))
+            numBombs++;
+        if( isValid(r+1,c+1) && bombs.contains(buttons[r+1][c+1]))
+             numBombs++;
+         if( isValid(r+1,c-1) && bombs.contains(buttons[r+1][c-1]))
+             numBombs++;
+         if( isValid(r-1,c) && bombs.contains(buttons[r-1][c]))
+             numBombs++;
+         if( isValid(r-1,c+1) && bombs.contains(buttons[r-1][c+1]))
+             numBombs++;
+         if( isValid(r-1,c-1) && bombs.contains(buttons[r-1][c-1]))
+             numBombs++;
+         if( isValid(r,c+1) && bombs.contains(buttons[r][c+1]))
+             numBombs++;
+         if( isValid(r,c-1) && bombs.contains(buttons[r][c-1]))
+             numBombs++;
+
         return numBombs;
     }
 }
