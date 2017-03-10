@@ -9,13 +9,13 @@ private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons 
 
 void setup ()
 {
-    size(400, 400);
+    size(400, 500);
     textAlign(CENTER,CENTER);
     textSize(20);
     
     // make the manager
     Interactive.make( this );
-    buttons = new MSButton[20][20];
+    buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for (int i=0;i<NUM_ROWS;i++)
     {
         for (int j=0; j<NUM_COLS;j++)
@@ -39,7 +39,6 @@ public void setBombs()
     if(!bombs.contains(buttons[i][j]))
     {
             bombs.add(buttons[i][j]);
-            System.out.println(i+", " + j);
     }
     }
 }
@@ -57,11 +56,13 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    text("good job", 200,200);
+    background(0);
+    fill(255,0,0);
+    text("you lose", 200,450);
 }
 public void displayWinningMessage()
 {
-    //your code here
+    text("good job!",200,200);
 }
 
 public class MSButton
@@ -105,10 +106,11 @@ public class MSButton
 
         if(keyPressed==true)
         {
-            if(marked=true)
-               { clicked=false;
+            if(marked==true)
+              {clicked=false;
                 marked=false;
-            }
+        }
+        
             else
                 marked=true;
         }
@@ -147,35 +149,39 @@ public class MSButton
 
     public void draw () 
     {    
-        if (marked)
-            fill(174,225,242);
-        // else if( clicked && bombs.contains(this) ) 
-        //     {
-        //         fill(255,0,0); 
+        if (marked==true)
+            fill(0,0,255);
+         else if( clicked && bombs.contains(this) ) 
+            {
+                fill(255,0,0); 
                
-        //     }
-        // else if( clicked && bombs.contains(buttons[r+1][c]) ) 
-        //     {fill(0,255,0);
-        //     }
-        //  else if( clicked && bombs.contains(buttons[r+1][c-1]) ) 
-        //    { fill(0,255,0);
-        //    }
-        //  else if( clicked && bombs.contains(buttons[r+1][c+1]) ) 
-        //    { fill(0,255,0);
-        //    }
-        //  else if( clicked && bombs.contains(buttons[r-1][c]) ) 
-        //     {fill(0,255,0);}
-        //  else if( clicked && bombs.contains(buttons[r-1][c+1]) ) 
-        //     {fill(0,255,0);}
-        //  else if( clicked && bombs.contains(buttons[r-1][c-1]) ) 
-        //     {fill(0,255,0);}
-        //  else if( clicked && bombs.contains(buttons[r][c+1]) ) 
-        //     {fill(0,255,0);}
-        //  else if( clicked && bombs.contains(buttons[r][c-1]) ) 
-        //     {fill(0,255,0);}
+           }
+        else if(clicked && bombs.contains(buttons[r+1][c]) ) 
+            {fill(174,225,242);
+            }
+         else if( clicked && bombs.contains(buttons[r+1][c-1]) ) 
+           { fill(174,225,242);
+           }
+         else if( clicked && bombs.contains(buttons[r+1][c+1]) ) 
+           { fill(174,225,242);
+           }
+         else if( clicked && bombs.contains(buttons[r-1][c]) ) 
+            {fill(174,225,242);}
+         else if( clicked && bombs.contains(buttons[r-1][c+1]) ) 
+            {fill(174,225,242);}
+         else if( clicked && bombs.contains(buttons[r-1][c-1]) ) 
+            {fill(174,225,242);}
+         else if( clicked && bombs.contains(buttons[r][c+1]) ) 
+            {fill(174,225,242);}
+         else if( clicked && bombs.contains(buttons[r][c-1]) ) 
+            {fill(174,225,242);}
+        
+
 
         else if (clicked)
             fill( 200 );
+        else if(clicked&& !bombs.contains(buttons[0][c]))
+            fill(200);
          else 
             fill(100 );
 
